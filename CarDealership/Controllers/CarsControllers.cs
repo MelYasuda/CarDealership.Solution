@@ -18,5 +18,15 @@ namespace CarDealership.Controllers
     {
         return View();
     }
+
+    [HttpPost("/cars")]
+    public ActionResult Create()
+    {
+      Car newCar = new Car(Request.Form["make-model"], int.Parse(Request.Form["car-price"]), int.Parse(Request.Form["car-mileage"]));
+
+      newCar.Save();
+      List<Car> carList = Car.GetAll();
+      return View("Index", carList);
+    }
   }
 }
